@@ -4,14 +4,13 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-// Node class to hold bus details
 class Node {
     int bus_number;
     String Bus_name;
     String start;
     String dest;
-    int cap[]; // 0 for available, 1 for booked
-    String name[]; // Array to store names of passengers
+    int cap[]; 
+    String name[];
     int age[];
 
     Node next;
@@ -19,22 +18,21 @@ class Node {
     Node(int size) {
         next = null;
         cap = new int[size];
-        name = new String[size]; // Initialize name array
-        age = new int[size];     // Initialize age array
+        name = new String[size]; 
+        age = new int[size];     
     }
 }
 
-// Main class for bus management system
 public class BusManagementSystem extends JFrame implements ActionListener {
     Node head;
     JTextArea displayArea;
     JTextField busNumberField, busNameField, startField, destField, capacityField, seatField,UserName,age;
-    JTextField nameField,ageField; // Fields for user name and age
+    JTextField nameField,ageField; 
     JButton searchButton, bookButton, cancelButton, displayButton;
 
-    // Simulating user accounts
+    
     String registeredUsername;
-    String registeredPassword;// Added variable to store registered age
+    String registeredPassword;
     String Username;
     String Age;
     BusManagementSystem() {
@@ -42,7 +40,7 @@ public class BusManagementSystem extends JFrame implements ActionListener {
         createSignupWindow();
     }
 
-    // Create the signup window
+    
     private void createSignupWindow() {
         JFrame signupFrame = new JFrame("Sign Up");
         signupFrame.setSize(400, 300);
@@ -80,7 +78,7 @@ public class BusManagementSystem extends JFrame implements ActionListener {
         signupFrame.setVisible(true);
     }
 
-    // Create the login window
+    
     private void createLoginWindow() {
         JFrame loginFrame = new JFrame("Login");
         loginFrame.setSize(400, 300);
@@ -117,21 +115,21 @@ public class BusManagementSystem extends JFrame implements ActionListener {
         loginFrame.setVisible(true);
     }
 
-    // Create the main window after login
+    
     private void createMainWindow() {
         JFrame mainFrame = new JFrame("Bus Management System");
         mainFrame.setSize(600, 500);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainFrame.setLayout(new BorderLayout(10, 10));
 
-        // Text area for displaying information
+        
         displayArea = new JTextArea(15, 40);
         displayArea.setFont(new Font("Monospaced", Font.PLAIN, 14));
         displayArea.setBorder(BorderFactory.createLineBorder(Color.GRAY, 2));
         displayArea.setEditable(false);
         mainFrame.add(new JScrollPane(displayArea), BorderLayout.CENTER);
 
-        // Panel for inputs
+        
         JPanel inputPanel = new JPanel(new GridLayout(9, 2, 10, 10));
         inputPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
@@ -169,33 +167,33 @@ public class BusManagementSystem extends JFrame implements ActionListener {
 
         mainFrame.add(inputPanel, BorderLayout.NORTH);
 
-        // Panel for buttons
+       
         JPanel buttonPanel = new JPanel(new GridLayout(2, 2, 10, 10));
 
-        // Create buttons with custom styles
+        
         searchButton = new JButton("Search Bus");
         bookButton = new JButton("Book Ticket");
         cancelButton = new JButton("Cancel Booking");
         displayButton = new JButton("Display Buses");
 
-        // Set button colors
-        searchButton.setBackground(Color.decode("#4CAF50")); // Green
+        
+        searchButton.setBackground(Color.decode("#4CAF50")); 
         searchButton.setForeground(Color.WHITE);
-        bookButton.setBackground(Color.decode("#2196F3")); // Blue
+        bookButton.setBackground(Color.decode("#2196F3")); 
         bookButton.setForeground(Color.WHITE);
-        cancelButton.setBackground(Color.decode("#f44336")); // Red
+        cancelButton.setBackground(Color.decode("#f44336")); 
         cancelButton.setForeground(Color.WHITE);
-        displayButton.setBackground(Color.decode("#FFC107")); // Amber
+        displayButton.setBackground(Color.decode("#FFC107")); 
         displayButton.setForeground(Color.WHITE);
 
-        // Set button font
+        
         Font buttonFont = new Font("Arial", Font.BOLD, 14);
         searchButton.setFont(buttonFont);
         bookButton.setFont(buttonFont);
         cancelButton.setFont(buttonFont);
         displayButton.setFont(buttonFont);
 
-        // Add buttons to the panel
+        
         buttonPanel.add(searchButton);
         buttonPanel.add(bookButton);
         buttonPanel.add(cancelButton);
@@ -203,18 +201,18 @@ public class BusManagementSystem extends JFrame implements ActionListener {
 
         mainFrame.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Add button listeners
+        
         searchButton.addActionListener(this);
         bookButton.addActionListener(this);
         cancelButton.addActionListener(this);
         displayButton.addActionListener(this);
 
-        // Populate some buses for testing
+        
         populateDefaultBuses();
         mainFrame.setVisible(true);
     }
 
-    // Handle button actions
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         
@@ -235,14 +233,14 @@ public class BusManagementSystem extends JFrame implements ActionListener {
         }
     }
 
-    // Populate default buses
+    
     void populateDefaultBuses() {
         insert(101, "Express", "Perundurai", "Erode", 60);
         insert(102, "SuperFast", "Konnavaikal", "Erode", 60);
         insert(103, "Local", "Coimbatore", "Erode", 60);
     }
 
-    // Insert a bus into the list
+    
     void insert(int bus_number, String Bus_name, String start, String dest, int cap) {
         Node l = new Node(cap);
         l.bus_number = bus_number;
@@ -260,7 +258,7 @@ public class BusManagementSystem extends JFrame implements ActionListener {
         }
     }
 
-    // Search for a bus
+    
     void searchBus() {
         String busNumberInput = busNumberField.getText();
         
@@ -289,7 +287,7 @@ public class BusManagementSystem extends JFrame implements ActionListener {
         }
     }
 
-    // Book a ticket for the registered user
+    
     void bookTicket() {
         String seatNumInput = seatField.getText();
         Username = UserName.getText();
@@ -299,7 +297,7 @@ public class BusManagementSystem extends JFrame implements ActionListener {
             return;
         }
         try {
-            int seatNum = Integer.parseInt(seatNumInput) - 1; // Convert to 0-index
+            int seatNum = Integer.parseInt(seatNumInput) - 1; 
             String busNumberInput = busNumberField.getText();
             if (busNumberInput.isEmpty()) {
                 displayArea.append("Please select a bus first.\n");
@@ -316,10 +314,10 @@ public class BusManagementSystem extends JFrame implements ActionListener {
                 } else if (temp.cap[seatNum] == 1) {
                     displayArea.append("Seat " + (seatNum + 1) + " is already booked.\n");
                 } else {
-                    temp.cap[seatNum] = 1; // Mark as booked
+                    temp.cap[seatNum] = 1; 
                     
-                    temp.name[seatNum] = Username; // Store the user's name
-                    temp.age[seatNum] = Integer.parseInt(Age); // Store the user's age
+                    temp.name[seatNum] = Username; 
+                    temp.age[seatNum] = Integer.parseInt(Age); 
                     displayArea.append("Ticket is booked successfully.\n");
                     displayArea.append("Booked seats for bus number " + temp.bus_number + " (" + temp.Bus_name + ").\n");
                     displayArea.append("Seat: " + (seatNum + 1) + " " + Username + " (Age: " +Age + ")\n");
@@ -332,7 +330,7 @@ public class BusManagementSystem extends JFrame implements ActionListener {
         }
     }
 
-    // Cancel a booking
+    
     void cancelBooking() {
         String seatNumInput = seatField.getText();
         if (seatNumInput.isEmpty()) {
@@ -340,7 +338,7 @@ public class BusManagementSystem extends JFrame implements ActionListener {
             return;
         }
         try {
-            int seatNum = Integer.parseInt(seatNumInput) - 1; // Convert to 0-index
+            int seatNum = Integer.parseInt(seatNumInput) - 1; 
             String busNumberInput = busNumberField.getText();
             if (busNumberInput.isEmpty()) {
                 displayArea.append("Please select a bus first.\n");
@@ -357,9 +355,9 @@ public class BusManagementSystem extends JFrame implements ActionListener {
                 } else if (temp.cap[seatNum] == 0) {
                     displayArea.append("Seat " + (seatNum + 1) + " is not booked.\n");
                 } else {
-                    temp.cap[seatNum] = 0; // Mark as available
-                    temp.name[seatNum] = null; // Clear the user's name
-                    temp.age[seatNum] = 0; // Clear the user's age
+                    temp.cap[seatNum] = 0; 
+                    temp.name[seatNum] = null; 
+                    temp.age[seatNum] = 0; 
                     displayArea.append("Booking for seat " + (seatNum + 1) + " cancelled successfully.\n");
                 }
             } else {
@@ -370,17 +368,17 @@ public class BusManagementSystem extends JFrame implements ActionListener {
         }
     }
 
-    // Create a storage window for displaying buses in table format
+    
     void createStorageWindow() {
         JFrame storageFrame = new JFrame("Stored Buses");
         storageFrame.setSize(600, 300);
         storageFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Column names for the table
+        
         String[] columnNames = {"Bus Number", "Bus Name", "From", "To", "Total Seats", "Booked Seats", "Available Seats"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         
-        // Populate the table model with bus data
+        
         Node temp = head;
         while (temp != null) {
             int totalSeats = temp.cap.length;
@@ -405,21 +403,21 @@ public class BusManagementSystem extends JFrame implements ActionListener {
             temp = temp.next;
         }
 
-        // Create the JTable and set the model
+        
         JTable table = new JTable(tableModel);
         table.setFillsViewportHeight(true);
         table.setRowHeight(25);
         table.getTableHeader().setFont(new Font("Arial", Font.BOLD, 14));
         table.setFont(new Font("Arial", Font.PLAIN, 12));
 
-        // Add the table to a scroll pane
+        
         JScrollPane scrollPane = new JScrollPane(table);
         storageFrame.add(scrollPane);
 
         storageFrame.setVisible(true);
     }
 
-    // Main method
+    
     public static void main(String[] args) {
         new BusManagementSystem();
     }
